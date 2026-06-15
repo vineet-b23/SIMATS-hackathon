@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "740423052334",
+    "project_id": "healthai-d2aea",
+    "storage_bucket": "healthai-d2aea.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:740423052334:android:a736fa7991ea0f5a1f03bf",
+        "android_client_info": {
+          "package_name": "com.example.medilink"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCttQv-GCsPKXVezmaTQl9KKwJtAk016VQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

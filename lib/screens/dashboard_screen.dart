@@ -5,6 +5,7 @@ import '../services/api_service.dart';
 import '../widgets/dashboard_tile.dart';
 import 'history_screen.dart';
 import 'profile_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -41,6 +42,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
     setState(() => _isActionLoading = true);
 
     try {
+
+      if (isEmergency) {
+  await FirebaseFirestore.instance
+      .collection('sos_alerts')
+      .doc('test1')
+      .set({
+    'message': '${_currentPatient!.name} needs help',
+    'status': 'active',
+    'patientId': _currentPatient!.id,
+    'room': _currentPatient!.roomNumber,
+    'timestamp': FieldValue.serverTimestamp(),
+  });
+}
       bool success = await ApiService.sendQuickRequest(
         patient: _currentPatient!,
         requestType: type,

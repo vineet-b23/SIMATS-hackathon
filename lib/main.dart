@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'screens/dashboard_screen.dart'; // Ensure this matches your dashboard file path
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'screens/dashboard_screen.dart';
 
 void main() async {
-  // 1. Ensure native platform bindings are initialized before async calls
   WidgetsFlutterBinding.ensureInitialized();
 
-  // 2. Optional: Inject mock session data for testing if SharedPreferences is empty
+  // Firebase Initialize
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   await _ensureMockSessionExists();
 
-  // 3. Launch the core application
   runApp(const MediLinkApp());
 }
 
@@ -30,16 +34,14 @@ class MediLinkApp extends StatelessWidget {
         ),
         scaffoldBackgroundColor: const Color(0xFFF5F5F5),
       ),
-      // Directs the app straight to your functional dashboard screen
       home: const DashboardScreen(),
     );
   }
 }
 
-/// Helper function to prevent an infinite loading screen on a fresh install/build.
-/// It pre-fills SharedPreferences if no patient session data exists yet.
 Future<void> _ensureMockSessionExists() async {
   final prefs = await SharedPreferences.getInstance();
+
   if (!prefs.containsKey('patient_id')) {
     await prefs.setString('patient_id', 'PT-2026-X89');
     await prefs.setString('patient_name', 'Vineet');
